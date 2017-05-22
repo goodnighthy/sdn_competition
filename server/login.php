@@ -1,6 +1,6 @@
 <?php
 header("Content-type:text/html;charset=utf-8");
-$user_id = $_POST['user_id'];
+$user_id = $_POST['username'];
 $password = $_POST['password'];
 $ip_address = $_SERVER["REMOTE_ADDR"];
 $login_time=date("Y-m-d H:i:s");

@@ -1,16 +1,28 @@
-<html>
+<!DOCTYPE html>
+<html >
 <head>
-<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="login.js"></script>
+
+  <meta charset="UTF-8">
+  <title>Login Page</title>
+  
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" type="text/css" href="login.css">
+  <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="login.js"></script>
+
 </head>
 
 <body>
- <form id="login" action="" method="post">
-  <p><span>user ID：</span><input type="text" name="user_id" /></p>
-  <p><span>password：</span><input type="text" name="password" /></p>
- </form>
- <button type="button" onclick="login()">提交</button>
- <div id="result">please login</div>
+  
+  <div class="login">
+	<h1>Login to your account</h1>
+    <form id="login" action="" method="post">
+    	<input type="text" name="username" placeholder="Username" required="required" />
+        <input type="text" name="password" placeholder="Password" required="required" />
+        <button id="result" type="button" class="btn btn-primary btn-block btn-large" onclick="login()">Login</button>
+    </form>
+  </div>
+  
 </body>
+
 </html>

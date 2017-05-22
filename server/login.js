@@ -8,15 +8,15 @@ function login(){
     success:function(data){
     console.log("receive success!");
     if(data.vlan == "-1"){
-      var str = "login failed, the user ID is nonexistent!"
+      var str = "invalid username !"
       $("#result").html(str);
     }
     else if(data.vlan == "-2"){
-      var str = "login failed, the password is wrong!"
+      var str = "wrong password !"
       $("#result").html(str);
     }
     else{
-      var str = "login sucess, the vlan ID is: " + data.vlan;
+      var str = "login success !";
       $("#result").html(str);
     }
     }
