@@ -133,15 +133,26 @@ public class vlanAlloction implements IOFMessageListener, IFloodlightModule{
 	        OFPort inPort = (myPacketIn.getVersion().compareTo(OFVersion.OF_12) < 0) ? myPacketIn.getInPort() : myPacketIn.getMatch().get(MatchField.IN_PORT);
 
 	        OFBufferId bufferId = myPacketIn.getBufferId();
+<<<<<<< HEAD
 	        
+=======
+
+>>>>>>> 564dea4af344c11986e8546a82a694744c8876f0
 	        if (eth.getEtherType() == EthType.IPv4) {
 	            IPv4 ipv4 = (IPv4) eth.getPayload();           
 	            IPv4Address srcIp = ipv4.getSourceAddress();
 	            //int srcVlan = getVlan(srcIp.toString());
+<<<<<<< HEAD
 	            if(eth.getVlanID() > 0){
 	            	//代表登陆用户，下发三条流表
 	            	System.out.println("here" + eth.getVlanID());
 //	            	createFlowMod1(switchId, srcIp, srcVlan);
+=======
+	            int srcVlan = 1;
+	            if(srcVlan > 0){
+	            	//代表登陆用户，下发三条流表
+	            	createFlowMod1(switchId, srcIp, srcVlan);
+>>>>>>> 564dea4af344c11986e8546a82a694744c8876f0
 	            	//createFlowMod3(switchId, srcIp, VlanVid.ofVlan(srcVlan), inPort);
 	            	
 	            }else{
@@ -158,7 +169,11 @@ public class vlanAlloction implements IOFMessageListener, IFloodlightModule{
 	}
 	
 	//table2 :srcip push vlan goto table3
+<<<<<<< HEAD
 	public static void createFlowModPushVlan(String switchid, IPv4Address srcipv4, int vlan){
+=======
+	public static void createFlowMod1(String switchid, IPv4Address srcipv4, int vlan){
+>>>>>>> 564dea4af344c11986e8546a82a694744c8876f0
 		IOFSwitch mySwitch = switchService.getSwitch(DatapathId.of(switchid));
 		OFFactory myFactory = mySwitch.getOFFactory();
 		OFVersion myVersion = myFactory.getVersion();
@@ -242,7 +257,11 @@ public class vlanAlloction implements IOFMessageListener, IFloodlightModule{
 	}
 	
 	//table2 : go to auth server
+<<<<<<< HEAD
 	public static void createFlowMod2AuthServer(String switchid, IPv4Address srcipv4,OFBufferId bufferId){
+=======
+	public static void createFlowMod2(String switchid, IPv4Address srcipv4,OFBufferId bufferId){
+>>>>>>> 564dea4af344c11986e8546a82a694744c8876f0
 		IOFSwitch mySwitch = switchService.getSwitch(DatapathId.of(switchid));
 		OFFactory myFactory = mySwitch.getOFFactory();
 		OFVersion myVersion = myFactory.getVersion();
@@ -330,7 +349,11 @@ public class vlanAlloction implements IOFMessageListener, IFloodlightModule{
 	}
 	
 	//table3 :desip pop vlan outputport
+<<<<<<< HEAD
 	public static void createFlowModPopVlan(String switchid, IPv4Address srcipv4, VlanVid vlan, OFPort outPort){
+=======
+	public static void createFlowMod3(String switchid, IPv4Address srcipv4, VlanVid vlan, OFPort outPort){
+>>>>>>> 564dea4af344c11986e8546a82a694744c8876f0
 		IOFSwitch mySwitch = switchService.getSwitch(DatapathId.of(switchid));
 		OFFactory myFactory = mySwitch.getOFFactory();
 		OFVersion myVersion = myFactory.getVersion();
