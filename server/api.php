@@ -1,14 +1,14 @@
 <?php
 header("Content-type:text/html;charset=utf-8");
-$ip_address = $_POST['ip_address'];
-$actino = $_POST['action'];
-#$ip_address = '127.0.0.1';
-#$action = "inform";
+//$ip_address = $_POST['ip_address'];
+//$actino = $_POST['action'];
+$ip_address = '127.0.0.1';
+$action = "query";
   
 switch($action)
 {
   case"query";
-    $con = mysql_connect("localhost","root","19951213hy");
+    $con = mysql_connect("localhost","root","root");
     if (!$con)
       {
         die('Could not connect: ' . mysql_error());
@@ -19,8 +19,10 @@ switch($action)
     $result = mysql_query("SELECT * FROM users
     WHERE ip_address = '$ip_address'");
 
-    if(!$result) 
-      die('invalid query1: ' . mysql_error());
+    if(!$result){
+        die('invalid query1: ' . mysql_error());
+    }
+
 
     if(!($row = mysql_fetch_array($result)))
     {
@@ -38,7 +40,7 @@ switch($action)
     break;
 
   case"inform";
-    $con = mysql_connect("localhost","root","19951213hy");
+    $con = mysql_connect("localhost","root","root");
     if (!$con)
       {
         die('Could not connect: ' . mysql_error());
