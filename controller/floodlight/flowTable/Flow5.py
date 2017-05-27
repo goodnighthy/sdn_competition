@@ -33,7 +33,7 @@ class StaticEntryPusher(object):
         conn.close()
         return ret
  
-pusher = StaticEntryPusher('192.168.1.168')
+pusher = StaticEntryPusher('192.168.56.1')
 
 # table 0:no vlan -> go to table 1 
 flow1 = {
@@ -54,7 +54,6 @@ flow2 = {
         "cookie":"0",
         "priority":"30000",
         "active":"true",
-        "eth_vlan_vid":"*",
         "instruction_goto_table":"2"
     }
 
@@ -99,7 +98,6 @@ flow6 = {
         "cookie":"0",
         "priority":"30000",
         "active":"true",
-        "eth_vlan_vid":"*",
         "instruction_goto_table":"2"
     }
 
@@ -137,6 +135,7 @@ flow9 = {
         "eth_vlan_vid":"0",
 	"instruction_apply_actions":"output=normal"
     }
+#pop vlan
 flow10 = {
         "table":"0",
         "switch":"00:00:00:00:00:00:00:02",
@@ -144,10 +143,11 @@ flow10 = {
         "cookie":"0",
         "priority":"50000",
         "active":"true",
-        "dl_vlan":"0x0001",
-	#"eth_vlan_vid":"0x0001",
-        "instruction_apply_actions":"output=2"
+        "eth_type":"0x0800",
+	"eth_vlan_vid":"0x0001/0xfff",
+        "instruction_apply_actions":"pop_vlan,output=normal"
     }
+#push vlan
 flow11 = {
         "table":"0",
         "switch":"00:00:00:00:00:00:00:01",
@@ -158,6 +158,7 @@ flow11 = {
 	"eth_type":"0x0800",
 	"instruction_apply_actions":"push_vlan=0x8100,set_field=eth_vlan_vid->1,output=normal"
     }
+# arp
 flow12 = {
         "table":"0",
         "switch":"00:00:00:00:00:00:00:01",
@@ -179,14 +180,14 @@ flow13 = {
         "instruction_apply_actions":"output=flood"
     } 
 
-#pusher.set(flow1)
-#pusher.set(flow2)
-#pusher.set(flow3)
-#pusher.set(flow4)
-#pusher.set(flow5)
-#pusher.set(flow6)
+pusher.set(flow1)
+pusher.set(flow2)
+pusher.set(flow3)
+pusher.set(flow4)
+pusher.set(flow5)
+pusher.set(flow6)
 
-pusher.set(flow10)
-pusher.set(flow11)
+pusher.set(flow7)
+pusher.set(flow8)
 pusher.set(flow12)
 pusher.set(flow13)
