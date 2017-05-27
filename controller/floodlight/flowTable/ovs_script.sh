@@ -1,0 +1,18 @@
+#! /bin/bash
+sudo ovs-ofctl add-flow s1 "table=0, dl_type=0x0806, priority=60000, actions=output:flood"
+sudo ovs-ofctl add-flow s1 "table=0, vlan_tci=0, priority=50000, actions=goto_table:1"
+sudo ovs-ofctl add-flow s1 "table=0, priority=40000, actions=goto_table:2"
+sudo ovs-ofctl add-flow s1 "table=1, priority=50000, dl_type=0x0800, nw_src=10.0.0.1, actions=mod_vlan_vid:1, goto_table:2"
+sudo ovs-ofctl add-flow s1 "table=2, priority=60000, dl_vlan=1, dl_type=0x0800, nw_dst=10.0.0.1, actions=strip_vlan, NORMAL"
+sudo ovs-ofctl add-flow s1 "table=2, priority=60000, dl_vlan=1, actions=NORMAL"
+
+sudo ovs-ofctl add-flow s2 "table=0, dl_type=0x0806, priority=60000, actions=output:flood"
+sudo ovs-ofctl add-flow s2 "table=0, vlan_tci=0, priority=50000, actions=goto_table:1"
+sudo ovs-ofctl add-flow s2 "table=0, priority=40000, actions=goto_table:2"
+sudo ovs-ofctl add-flow s2 "table=1, priority=50000, dl_type=0x0800, nw_src=10.0.0.4, actions=mod_vlan_vid:1, goto_table:2"
+sudo ovs-ofctl add-flow s2 "table=1, priority=50000, dl_type=0x0800, nw_src=10.0.0.5, actions=mod_vlan_vid:1, goto_table:2"
+sudo ovs-ofctl add-flow s2 "table=2, priority=60000, dl_vlan=1, dl_type=0x0800, nw_dst=10.0.0.4, actions=strip_vlan, NORMAL"
+sudo ovs-ofctl add-flow s2 "table=2, priority=60000, dl_vlan=1, dl_type=0x0800, nw_dst=10.0.0.5, actions=strip_vlan, NORMAL"
+sudo ovs-ofctl add-flow s2 "table=2, priority=60000, dl_vlan=1, actions=NORMAL"
+#sudo ovs-ofctl add-flow s1 "vlan_tci=0, actions=mod_vlan_vid:1,NORMAL"
+#sudo ovs-ofctl add-flow s2 "dl_vlan=1, actions=strip_vlan, NORMAL"

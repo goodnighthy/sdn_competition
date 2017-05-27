@@ -33,7 +33,7 @@ class StaticEntryPusher(object):
         conn.close()
         return ret
  
-pusher = StaticEntryPusher('192.168.56.1')
+pusher = StaticEntryPusher('192.168.1.168')
 
 # table 0:no vlan -> go to table 1 
 flow1 = {
@@ -144,9 +144,9 @@ flow10 = {
         "cookie":"0",
         "priority":"50000",
         "active":"true",
-        "eth_type":"0x8100",
-	"eth_vlan_vid":"1",
-        "instruction_apply_actions":"pop_vlan,output=normal"
+        "dl_vlan":"0x0001",
+	#"eth_vlan_vid":"0x0001",
+        "instruction_apply_actions":"output=2"
     }
 flow11 = {
         "table":"0",
